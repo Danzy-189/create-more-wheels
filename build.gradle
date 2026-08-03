@@ -1,0 +1,79 @@
+plugins {
+    id 'java-library'
+    // ModDevGradle. Bump the version if a newer 2.0.x is released.
+    id 'net.neoforged.moddev' version '2.0.+'
+}
+
+version = "${mod_version}+mc${minecraft_version}"
+group = mod_group_id
+
+base {
+    archivesName = mod_id
+}
+
+java {
+    toolchain.languageVersion = JavaLanguageVersion.of(21)
+    withSourcesJar()
+}
+
+repositories {
+    mavenLocal()
+    maven { name = 'NeoForged'; url = 'https://maven.neoforged.net/releases' }
+}
+
+neoForge {
+    version = project.neo_version
+
+    // No compile dependency on Create / Offroad: the tire data component is
+    // resolved at runtime through the registry + its codec. See
+    // dev.danzy.morewheels.compat.TireComponentAttacher.
+
+    runs {
+        client {
+            client()
+            systemProperty 'neoforge.enabledGameTestNamespaces', mod_id
+        }
+        server {
+            server()
+            programArgument '--nogui'
+        }
+        data {
+            clientData()
+        }
+    }
+
+    mods {
+        "${mod_id}" {
+            sourceSet(sourceSets.main)
+        }
+    }
+}
+
+dependencies {
+}
+
+tasks.withType(ProcessResources).configureEach {
+    var replaceProperties = [
+            minecraft_version      : minecraft_version,
+            minecraft_version_range: minecraft_version_range,
+            neo_version            : neo_version,
+            neo_version_range      : neo_version_range,
+            loader_version_range   : loader_version_range,
+            mod_id                 : mod_id,
+            mod_name               : mod_name,
+            mod_license            : mod_license,
+            mod_version            : mod_version,
+            mod_authors            : mod_authors,
+            mod_description        : mod_description
+    ]
+    inputs.properties replaceProperties
+
+    filesMatching(['META-INF/neoforge.mods.toml']) {
+        expand replaceProperties
+    }
+}
+
+tasks.withType(JavaCompile).configureEach {
+    options.encoding = 'UTF-8'
+    options.release = 21
+}

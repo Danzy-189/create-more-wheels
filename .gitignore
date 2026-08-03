@@ -1,0 +1,25 @@
+# gradle
+.gradle/
+build/
+out/
+
+# neoforge runs
+run/
+runs/
+runclient/
+runserver/
+rundata/
+
+# ide
+.idea/
+*.iml
+*.ipr
+*.iws
+.vscode/
+.eclipse/
+.settings/
+.classpath
+.project
+
+# os
+.DS_Store
