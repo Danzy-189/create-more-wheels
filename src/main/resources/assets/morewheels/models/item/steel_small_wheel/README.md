@@ -17,6 +17,12 @@ radius is 0.75 with no margin. Centred on 0.5 in X and Z, so no `offset` is need
 Objects: `belt_tire`, `core`, `spokes`. 116 verts / 128 faces - by far the cheapest
 mesh in the set.
 
+## Orientation
+
+This mesh uses `rotation = [90, 0, 0]` (`WheelDefinition.AXLE_Y`), **not** the `[270, 0, 0]`
+the soviet meshes use. It was authored in Blender, whose default axis handedness leaves the
+decorated face pointing the opposite way, so 270 buries the spokes against the suspension.
+
 ## Texture key is different
 
 This mesh came out of Blender with the material placeholder `#small_tire_rework`
