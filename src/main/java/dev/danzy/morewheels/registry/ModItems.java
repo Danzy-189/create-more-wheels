@@ -17,6 +17,7 @@ import java.util.List;
  * <table>
  *   <tr><th>wheel</th><th>radius</th><th>Offroad tier</th><th>mesh radius</th></tr>
  *   <tr><td>soviet_small_wheel</td><td>0.8</td><td>small_tire (0.75)</td><td>0.694</td></tr>
+ *   <tr><td>steel_small_wheel</td><td>0.75</td><td>small_tire (0.75)</td><td>0.750</td></tr>
  *   <tr><td>soviet_wheel</td><td>0.96875</td><td>tire (0.96875)</td><td>0.896</td></tr>
  *   <tr><td>soviet_large_wheel</td><td>1.25</td><td>large_tire (1.25)</td><td>1.179</td></tr>
  * </table>
@@ -37,6 +38,23 @@ public final class ModItems {
     public static final DeferredItem<Item> SOVIET_SMALL_WHEEL = wheel(
             "soviet_small_wheel",
             WheelDefinition.simple(0.8F, WheelDefinition.AXLE_Y_FLIPPED, 0.6F)
+    );
+
+    /**
+     * Spoked steel small wheel (belted tire, steel core, open spokes).
+     * Offroad counterpart: {@code small_tire} (0.75).
+     *
+     * <p>Mesh bounds: 1.5 x 0.6334 x 1.5 blocks (24.0 x 10.1 x 24.0 px), so the mesh
+     * radius is exactly 0.75 and the registered radius matches it 1:1 - the tread meets
+     * the ground with no fudge factor. Perfectly centred on 0.5 in X and Z.</p>
+     *
+     * <p>Authored in Blender, 116 verts / 128 faces. Its material placeholder is
+     * {@code #small_tire_rework}, so its {@code item.json} uses that texture key
+     * instead of {@code tire_0}.</p>
+     */
+    public static final DeferredItem<Item> STEEL_SMALL_WHEEL = wheel(
+            "steel_small_wheel",
+            WheelDefinition.simple(0.75F, WheelDefinition.AXLE_Y_FLIPPED, 0.5F)
     );
 
     /**
