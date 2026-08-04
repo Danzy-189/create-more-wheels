@@ -11,15 +11,14 @@ import java.util.ArrayList;
 import java.util.List;
 
 /**
- * The wheel lineup. Radii mostly mirror Offroad's own tiers so the wheels are
- * drop-in alternatives to the vanilla tires.
+ * The wheel lineup. Radii mirror Offroad's own tiers so the wheels are drop-in
+ * alternatives to the vanilla tires.
  *
  * <table>
  *   <tr><th>wheel</th><th>radius</th><th>rotation</th><th>Offroad tier</th><th>mesh radius</th></tr>
- *   <tr><td>steel_small_wheel</td><td>0.75</td><td>90</td><td>small_tire (0.75)</td><td>0.750</td></tr>
  *   <tr><td>soviet_small_wheel</td><td>0.8</td><td>270</td><td>small_tire (0.75)</td><td>0.694</td></tr>
+ *   <tr><td>steel_small_wheel</td><td>0.75</td><td>90</td><td>small_tire (0.75)</td><td>0.750</td></tr>
  *   <tr><td>soviet_wheel</td><td>0.96875</td><td>270</td><td>tire (0.96875)</td><td>0.896</td></tr>
- *   <tr><td>steel_wheel</td><td>1.125</td><td>90</td><td>between tire and large_tire</td><td>1.125</td></tr>
  *   <tr><td>soviet_large_wheel</td><td>1.25</td><td>270</td><td>large_tire (1.25)</td><td>1.179</td></tr>
  * </table>
  */
@@ -71,25 +70,6 @@ public final class ModItems {
     public static final DeferredItem<Item> SOVIET_WHEEL = wheel(
             "soviet_wheel",
             WheelDefinition.simple(0.96875F, WheelDefinition.AXLE_Y_FLIPPED, 0.5F)
-    );
-
-    /**
-     * Spoked steel wheel - the same design as {@link #STEEL_SMALL_WHEEL}, scaled up 1.5x.
-     *
-     * <p>Mesh bounds: 2.2494 x 0.7498 x 2.2494 blocks (36.0 x 12.0 x 36.0 px), mesh radius
-     * 1.1247, so the registered radius is 1.125 and matches the geometry 1:1 like its
-     * smaller sibling. That lands it between Offroad's {@code tire} (0.96875) and
-     * {@code large_tire} (1.25) rather than on an existing tier.</p>
-     *
-     * <p>Same orientation as the small steel wheel: {@link WheelDefinition#AXLE_Y} (90).</p>
-     *
-     * <p>Shares the small steel wheel's texture - its {@code item.json} points straight at
-     * {@code morewheels:block/steel_small_wheel/small_tire_rework}, so this wheel ships no
-     * PNG of its own.</p>
-     */
-    public static final DeferredItem<Item> STEEL_WHEEL = wheel(
-            "steel_wheel",
-            WheelDefinition.simple(1.125F, WheelDefinition.AXLE_Y, 0.5F)
     );
 
     /**
