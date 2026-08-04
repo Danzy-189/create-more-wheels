@@ -1,0 +1,10 @@
+# Made in Blockbench 5.1.6, texture paths replaced with NeoForge OBJ placeholders.
+# This wheel uses three textures, so all three materials must be declared here and
+# all three keys must exist in item.json.
+newmtl m_ffd78dad-8b29-8f58-4dbf-879be810cecb
+map_Kd #med_tyre
+newmtl m_2a62227a-1d2a-ebbd-6586-29ef85df6db5
+map_Kd #rim_hub
+newmtl m_09412423-3297-4f41-b0df-1ef7ada589f1
+map_Kd #bake_disc
+newmtl none

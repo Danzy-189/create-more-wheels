@@ -1,0 +1,36 @@
+{
+  "parent": "block/air",
+  "ambientocclusion": false,
+  "textures": {
+    "med_tyre": "morewheels:block/simple_wheel/med_tyre",
+    "rim_hub": "morewheels:block/simple_wheel/rim_hub",
+    "bake_disc": "morewheels:block/simple_wheel/bake_disc",
+    "particle": "morewheels:block/simple_wheel/med_tyre"
+  },
+  "loader": "neoforge:obj",
+  "flip_v": true,
+  "model": "morewheels:models/item/simple_wheel/block.obj",
+  "display": {
+    "gui": {
+      "rotation": [ 30, 225, 0 ],
+      "scale": [ 0.42, 0.42, 0.42 ]
+    },
+    "thirdperson_righthand": {
+      "rotation": [ 75, 45, 0 ],
+      "translation": [ 0, 2.5, 0 ],
+      "scale": [ 0.36, 0.36, 0.36 ]
+    },
+    "firstperson_righthand": {
+      "rotation": [ 0, 45, 0 ],
+      "scale": [ 0.42, 0.42, 0.42 ]
+    },
+    "ground": {
+      "translation": [ 0, 3, 0 ],
+      "scale": [ 0.26, 0.26, 0.26 ]
+    },
+    "fixed": {
+      "rotation": [ 90, 0, 0 ],
+      "scale": [ 0.62, 0.62, 0.62 ]
+    }
+  }
+}

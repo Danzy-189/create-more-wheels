@@ -16,8 +16,9 @@ import java.util.List;
  *
  * <table>
  *   <tr><th>wheel</th><th>radius</th><th>rotation</th><th>Offroad tier</th><th>mesh radius</th></tr>
- *   <tr><td>soviet_small_wheel</td><td>0.8</td><td>270</td><td>small_tire (0.75)</td><td>0.694</td></tr>
+ *   <tr><td>simple_wheel</td><td>0.75</td><td>270</td><td>small_tire (0.75)</td><td>0.717</td></tr>
  *   <tr><td>steel_small_wheel</td><td>0.75</td><td>90</td><td>small_tire (0.75)</td><td>0.750</td></tr>
+ *   <tr><td>soviet_small_wheel</td><td>0.8</td><td>270</td><td>small_tire (0.75)</td><td>0.694</td></tr>
  *   <tr><td>soviet_wheel</td><td>0.96875</td><td>270</td><td>tire (0.96875)</td><td>0.896</td></tr>
  *   <tr><td>soviet_large_wheel</td><td>1.25</td><td>270</td><td>large_tire (1.25)</td><td>1.179</td></tr>
  * </table>
@@ -26,6 +27,27 @@ public final class ModItems {
     public static final DeferredRegister.Items ITEMS = DeferredRegister.createItems(MoreWheels.MOD_ID);
 
     private static final List<WheelEntry> WHEELS = new ArrayList<>();
+
+    /**
+     * Simple rubber wheel with a bolted rim and a brake disc.
+     * Offroad counterpart: {@code small_tire} (0.75).
+     *
+     * <p>The only wheel so far built from <b>three</b> textures - {@code med_tyre},
+     * {@code rim_hub} and {@code bake_disc} - so its {@code block.mtl} keeps three
+     * materials and its {@code item.json} declares three texture keys.</p>
+     *
+     * <p>The source mesh stood upright (axle along Z) and was centred on
+     * (0.0, 0.75, 0.0555). It was rotated +90 degrees about X and translated so the axle
+     * runs along +Y and the bounding box is centred on the block, matching every other
+     * wheel; see the model README for the exact transform.</p>
+     *
+     * <p>Mesh bounds after the fix: 1.4334 x 0.5734 x 1.4334 blocks (22.9 x 9.2 x 22.9 px),
+     * mesh radius 0.7167 - a 4% margin under the registered 0.75.</p>
+     */
+    public static final DeferredItem<Item> SIMPLE_WHEEL = wheel(
+            "simple_wheel",
+            WheelDefinition.simple(0.75F, WheelDefinition.AXLE_Y_FLIPPED, 0.55F)
+    );
 
     /**
      * Soviet-style small off-road wheel. Offroad counterpart: {@code small_tire} (0.75).
