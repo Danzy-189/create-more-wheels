@@ -1,5 +1,0 @@
-# Authored in Blender, texture path replaced with the NeoForge OBJ placeholder.
-# The material name must keep its .001 suffix to match the usemtl lines in block.obj.
-newmtl m_a1331e58-40a9-8096-4155-344fe1c3d5c6.001
-map_Kd #small_tire_rework
-newmtl none
