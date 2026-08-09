@@ -2,19 +2,21 @@
 
 Semi-truck tire on a polished multi-slot rim.
 
-## Missing binaries
-
-Two files that belong to this wheel are **not** in git yet, because the GitHub
-contents API used to add it is text-only - the same limitation recorded in
-`soviet_wheel/README.md`:
+## Files
 
 | file | size |
 | --- | --- |
 | `block.obj` | 184076 B |
+| `block.mtl` | 118 B |
+| `item.json` | 1172 B |
 | `../../../textures/block/semi-truck_tire/tire_0.png` | 1062 B |
 
-Both are attached to the pull request that added this wheel. Drop them in
-before building, otherwise the item falls back to the missing-model cube.
+`block.obj` and `tire_0.png` were uploaded through the web UI rather than
+committed with the rest of the wheel, because the GitHub contents API is
+text-only - the same limitation recorded in `soviet_wheel/README.md`. Worth
+remembering if this wheel is ever regenerated: the two binaries will not travel
+with an ordinary API commit, and without them the item falls back to the
+missing-model cube.
 
 ## Mesh
 
