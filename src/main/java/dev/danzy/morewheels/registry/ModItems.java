@@ -26,7 +26,7 @@ import java.util.List;
  *   <tr><td>soviet_small_wheel</td><td>0.8</td><td>270</td><td>small_tire (0.75)</td><td>0.694</td></tr>
  *   <tr><td>soviet_wheel</td><td>0.96875</td><td>270</td><td>tire (0.96875)</td><td>0.896</td></tr>
  *   <tr><td>soviet_large_wheel</td><td>1.25</td><td>270</td><td>large_tire (1.25)</td><td>1.179</td></tr>
- *   <tr><td>semi-truck_tire</td><td>0.96875</td><td>90</td><td>tire (0.96875)</td><td>0.896</td></tr>
+ *   <tr><td>semi-truck_tire</td><td>0.96875</td><td>270</td><td>tire (0.96875)</td><td>0.896</td></tr>
  * </table>
  *
  * <p><b>The steel_small_wheel mesh family.</b> {@code steel_small_wheel}, {@code classic_wheel},
@@ -176,25 +176,27 @@ public final class ModItems {
     /**
      * Semi-truck tire on a polished multi-slot rim - a 16-sided carcass with four rib
      * bands, a dished rim with eight webs and hand holes, an octagonal hub carrying ten
-     * lug nuts and an axle cap. Offroad counterpart: {@code tire} (0.96875).
+     * lug nuts and an axle cap. The reverse carries a chrome ring, a recessed steel brake
+     * drum and a small centre boss. Offroad counterpart: {@code tire} (0.96875).
      *
-     * <p>Generated parametrically and converted to OBJ rather than modelled by hand, so
-     * it comes out with the outer face on +Y and uses {@link WheelDefinition#AXLE_Y} (90)
-     * like the Blender meshes, not {@code AXLE_Y_FLIPPED} like the soviet ones. If the rim
-     * ends up facing the suspension in game, flip this one constant.</p>
+     * <p>Generated parametrically and converted to OBJ rather than modelled by hand. The
+     * mesh is built with its outer face on +Y, which would normally call for
+     * {@code AXLE_Y} (90) like the Blender meshes, but in game that pointed the rim at the
+     * suspension, so it is registered with {@link WheelDefinition#AXLE_Y_FLIPPED} (270)
+     * like the soviet meshes instead.</p>
      *
      * <p>Mesh bounds: 1.792 x 0.6286 x 1.792 blocks (28.7 x 10.1 x 28.7 px), mesh radius
      * 0.896 - the same 8% margin under the registered radius that {@code soviet_wheel}
      * uses. Centred on 0.5 in all three axes, so {@code offset} stays {@code Vec3.ZERO}.
      * Width over diameter is 0.32, about right for a 315/80R22.5 casing.</p>
      *
-     * <p>Built from a single 32x32 atlas - tread, chrome and dark recess packed into three
-     * quadrants - so its {@code block.mtl} keeps one material and its {@code item.json}
-     * declares one texture key, {@code tire_0}.</p>
+     * <p>Built from a single 32x32 atlas - tread, chrome, dark recess and machined steel
+     * packed into the four quadrants - so its {@code block.mtl} keeps one material and its
+     * {@code item.json} declares one texture key, {@code tire_0}.</p>
      */
     public static final DeferredItem<Item> SEMI_TRUCK_TIRE = wheel(
             "semi-truck_tire",
-            WheelDefinition.simple(0.96875F, WheelDefinition.AXLE_Y, 0.6F)
+            WheelDefinition.simple(0.96875F, WheelDefinition.AXLE_Y_FLIPPED, 0.6F)
     );
 
     private ModItems() {
