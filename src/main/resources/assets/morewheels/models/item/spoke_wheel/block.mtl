@@ -1,0 +1,5 @@
+# Authored in Blender 5.1.1, texture path replaced with the NeoForge OBJ placeholder.
+# The material name must stay byte for byte identical to the usemtl lines in block.obj.
+newmtl m_a1331e58-40a9-8096-4155-344fe1c3d5c6
+map_Kd #spoke_tire
+newmtl none

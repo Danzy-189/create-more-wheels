@@ -1,0 +1,21 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "category": "misc",
+  "pattern": [
+    " W ",
+    "WIW",
+    " W "
+  ],
+  "key": {
+    "W": {
+      "item": "minecraft:black_wool"
+    },
+    "I": {
+      "item": "minecraft:coal"
+    }
+  },
+  "result": {
+    "id": "morewheels:drag_wheel",
+    "count": 1
+  }
+}

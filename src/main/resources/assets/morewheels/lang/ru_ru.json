@@ -3,6 +3,11 @@
   "item.morewheels.simple_wheel": "Простое колесо",
   "item.morewheels.soviet_small_wheel": "Малое советское колесо",
   "item.morewheels.steel_small_wheel": "Малое стальное колесо",
+  "item.morewheels.classic_wheel": "Классическое колесо",
+  "item.morewheels.sport_wheel": "Спортивное колесо",
+  "item.morewheels.drag_wheel": "Гоночное колесо",
+  "item.morewheels.power_wheel": "Силовое колесо",
+  "item.morewheels.spoke_wheel": "Спицованное колесо",
   "item.morewheels.soviet_wheel": "Советское колесо",
   "item.morewheels.soviet_large_wheel": "Большое советское колесо"
 }

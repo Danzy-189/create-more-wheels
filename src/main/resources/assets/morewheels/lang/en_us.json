@@ -3,6 +3,11 @@
   "item.morewheels.simple_wheel": "Simple Wheel",
   "item.morewheels.soviet_small_wheel": "Soviet Small Wheel",
   "item.morewheels.steel_small_wheel": "Steel Small Wheel",
+  "item.morewheels.classic_wheel": "Classic Wheel",
+  "item.morewheels.sport_wheel": "Sport Wheel",
+  "item.morewheels.drag_wheel": "Drag Wheel",
+  "item.morewheels.power_wheel": "Power Wheel",
+  "item.morewheels.spoke_wheel": "Spoke Wheel",
   "item.morewheels.soviet_wheel": "Soviet Wheel",
   "item.morewheels.soviet_large_wheel": "Soviet Large Wheel"
 }

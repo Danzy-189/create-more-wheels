@@ -18,10 +18,22 @@ import java.util.List;
  *   <tr><th>wheel</th><th>radius</th><th>rotation</th><th>Offroad tier</th><th>mesh radius</th></tr>
  *   <tr><td>simple_wheel</td><td>0.75</td><td>270</td><td>small_tire (0.75)</td><td>0.717</td></tr>
  *   <tr><td>steel_small_wheel</td><td>0.75</td><td>90</td><td>small_tire (0.75)</td><td>0.750</td></tr>
+ *   <tr><td>classic_wheel</td><td>0.75</td><td>90</td><td>small_tire (0.75)</td><td>0.750</td></tr>
+ *   <tr><td>sport_wheel</td><td>0.75</td><td>90</td><td>small_tire (0.75)</td><td>0.750</td></tr>
+ *   <tr><td>drag_wheel</td><td>0.75</td><td>90</td><td>small_tire (0.75)</td><td>0.750</td></tr>
+ *   <tr><td>power_wheel</td><td>0.75</td><td>90</td><td>small_tire (0.75)</td><td>0.750</td></tr>
+ *   <tr><td>spoke_wheel</td><td>0.75</td><td>90</td><td>small_tire (0.75)</td><td>0.750</td></tr>
  *   <tr><td>soviet_small_wheel</td><td>0.8</td><td>270</td><td>small_tire (0.75)</td><td>0.694</td></tr>
  *   <tr><td>soviet_wheel</td><td>0.96875</td><td>270</td><td>tire (0.96875)</td><td>0.896</td></tr>
  *   <tr><td>soviet_large_wheel</td><td>1.25</td><td>270</td><td>large_tire (1.25)</td><td>1.179</td></tr>
  * </table>
+ *
+ * <p><b>The steel_small_wheel mesh family.</b> {@code steel_small_wheel}, {@code classic_wheel},
+ * {@code sport_wheel}, {@code drag_wheel}, {@code power_wheel} and {@code spoke_wheel} all ship
+ * the very same {@code block.obj} - the files are byte for byte identical - and differ only in
+ * their 32x32 texture. They therefore share every number below: radius 0.75, rotation
+ * {@link WheelDefinition#AXLE_Y} (90) because the mesh came out of Blender, and
+ * minimum friction 0.5. Fixing the mesh means re-uploading it to all six folders.</p>
  */
 public final class ModItems {
     public static final DeferredRegister.Items ITEMS = DeferredRegister.createItems(MoreWheels.MOD_ID);
@@ -79,6 +91,61 @@ public final class ModItems {
      */
     public static final DeferredItem<Item> STEEL_SMALL_WHEEL = wheel(
             "steel_small_wheel",
+            WheelDefinition.simple(0.75F, WheelDefinition.AXLE_Y, 0.5F)
+    );
+
+    /**
+     * Classic road wheel - a retexture of the {@code steel_small_wheel} mesh.
+     * Offroad counterpart: {@code small_tire} (0.75).
+     *
+     * <p>Same geometry, same numbers, different 32x32 skin ({@code classic_tire}).</p>
+     */
+    public static final DeferredItem<Item> CLASSIC_WHEEL = wheel(
+            "classic_wheel",
+            WheelDefinition.simple(0.75F, WheelDefinition.AXLE_Y, 0.5F)
+    );
+
+    /**
+     * Sport wheel - a retexture of the {@code steel_small_wheel} mesh.
+     * Offroad counterpart: {@code small_tire} (0.75).
+     *
+     * <p>Same geometry, same numbers, different 32x32 skin ({@code sport_tire}).</p>
+     */
+    public static final DeferredItem<Item> SPORT_WHEEL = wheel(
+            "sport_wheel",
+            WheelDefinition.simple(0.75F, WheelDefinition.AXLE_Y, 0.5F)
+    );
+
+    /**
+     * Drag wheel - a retexture of the {@code steel_small_wheel} mesh.
+     * Offroad counterpart: {@code small_tire} (0.75).
+     *
+     * <p>Same geometry, same numbers, different 32x32 skin ({@code drag_tire}).</p>
+     */
+    public static final DeferredItem<Item> DRAG_WHEEL = wheel(
+            "drag_wheel",
+            WheelDefinition.simple(0.75F, WheelDefinition.AXLE_Y, 0.5F)
+    );
+
+    /**
+     * Power wheel - a retexture of the {@code steel_small_wheel} mesh.
+     * Offroad counterpart: {@code small_tire} (0.75).
+     *
+     * <p>Same geometry, same numbers, different 32x32 skin ({@code power_tire}).</p>
+     */
+    public static final DeferredItem<Item> POWER_WHEEL = wheel(
+            "power_wheel",
+            WheelDefinition.simple(0.75F, WheelDefinition.AXLE_Y, 0.5F)
+    );
+
+    /**
+     * Spoke wheel - a retexture of the {@code steel_small_wheel} mesh.
+     * Offroad counterpart: {@code small_tire} (0.75).
+     *
+     * <p>Same geometry, same numbers, different 32x32 skin ({@code spoke_tire}).</p>
+     */
+    public static final DeferredItem<Item> SPOKE_WHEEL = wheel(
+            "spoke_wheel",
             WheelDefinition.simple(0.75F, WheelDefinition.AXLE_Y, 0.5F)
     );
 

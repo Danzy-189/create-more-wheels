@@ -1,0 +1,21 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "category": "misc",
+  "pattern": [
+    " W ",
+    "WIW",
+    " W "
+  ],
+  "key": {
+    "W": {
+      "item": "minecraft:black_wool"
+    },
+    "I": {
+      "item": "minecraft:chain"
+    }
+  },
+  "result": {
+    "id": "morewheels:spoke_wheel",
+    "count": 1
+  }
+}
