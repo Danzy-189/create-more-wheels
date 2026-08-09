@@ -26,7 +26,7 @@ inwards.
 
 | | |
 |---|---|
-| faces | 758 |
+| faces | 846, all quads |
 | vertices | 3208 |
 | scale factor | 2.02856 |
 | mesh radius | 1.0120 blocks |
@@ -34,11 +34,33 @@ inwards.
 | bounds Y | 0.0918 .. 0.9082 |
 | bounds Z | -0.4936 .. 1.4936 |
 | width / diameter | 0.403 |
-| `block.obj` | 224470 bytes, md5 `e3ae06ddbf42acf6eb4ba3194a8d6272` |
+| `block.obj` | 229290 bytes, md5 `24acc120ea1f15aaf7595a40d3124b0e` |
 | `tire_0.png` | 1587 bytes, md5 `f34ac92eeb47a43ad055879adb38d745` |
 
 In OBJ space the axle runs along `+Y`, so the radial distance of a vertex is
 `hypot(x - 0.5, z - 0.5)`.
+
+`block.obj` and `tire_0.png` are uploaded through the web UI rather than
+committed with the rest of the wheel, because the GitHub contents API is
+text-only. Without them the item falls back to the missing-model cube.
+
+## Quads only
+
+The OBJ must not contain a face with more than four corners. Minecraft renders
+quads, and the NeoForge OBJ loader does not assemble a larger polygon: it drops
+it, silently, with no warning and no missing-model cube. The face is simply not
+there, and you see through the model into whatever is behind it.
+
+This is what made the hub, the bolts and the face dish transparent. Every
+`prism` was writing its two caps as a single 16-gon, octagon or hexagon, so
+every prism in the wheel was an open tube in game while looking perfectly solid
+in any offline renderer that triangulates polygons on its own.
+
+`poly` now fans anything larger into quads, and `prism` routes its caps through
+`poly` rather than appending them to the face list directly, which is how they
+had been bypassing the shared path in the first place. The caps are planar and
+convex, so a fan from corner 0 is exact and keeps the original winding. Nothing
+moves; the face count rose from 758 purely from retessellation.
 
 ## Geometry
 
@@ -110,6 +132,7 @@ about 2 percent of the radius.
 
 `build_ural.py` refuses to emit a mesh that fails any of these:
 
+- **no face has more than four corners**, because the loader drops those
 - every face samples inside its own atlas tile
 - no degenerate faces
 - no two groups share a z plane over an overlapping radius, so nothing z-fights
@@ -125,15 +148,20 @@ radius. All five views report zero.
   by exactly one opposite edge. Catches missing faces and inverted windings.
 - **see-through**, rasterising with culling off and flagging any pixel whose
   nearest surface faces away from the camera. Zero in every view.
-- **background by radius**, which is the one that actually found this bug. The
-  hole count and the see-through test both pass on a mesh with windows in it,
+- **background by radius**, which is what found the tread windows. The hole
+  count and the see-through test both pass on a mesh with windows in it,
   because a window has geometry behind it and is not an inverted face. Only
   tallying background pixels by radius in the axial view shows daylight
-  reaching in. It now reports zero below 0.99, with the remainder confined to
-  the 0.99 to 1.02 scallop.
+  reaching in. It reports zero below 0.99, with the remainder confined to the
+  0.99 to 1.02 scallop.
 
 The reported tread overhang is `-0.0127` blocks on both sides, meaning the lugs
 sit inside the sidewall bands rather than poking out past them.
+
+One caveat worth keeping in mind: these renderers triangulate polygons
+themselves, so for a while they were validating a mesh the game never loads.
+That is why the quad rule is enforced in the builder rather than in the
+renderer. An offline preview cannot see this class of bug at all.
 
 ## Textures
 

@@ -6,7 +6,7 @@ Semi-truck tire on a polished multi-slot rim.
 
 | file | size |
 | --- | --- |
-| `block.obj` | 205556 B |
+| `block.obj` | 208623 B |
 | `block.mtl` | 118 B |
 | `item.json` | 1172 B |
 | `../../../textures/block/semi-truck_tire/tire_0.png` | 1319 B |
@@ -29,7 +29,7 @@ Generated parametrically rather than modelled by hand, then converted to OBJ.
 | bounds Z | -0.3960 .. 1.3960 (1.7920 blocks, 28.7 px) |
 | mesh radius | 0.896 |
 | registered radius | 0.96875 (`tire`) |
-| faces | 706 |
+| faces | 762, all quads |
 | vertices | 2936 |
 
 Centred on 0.5 in every axis, so `offset` stays `Vec3.ZERO`. The mesh radius
@@ -44,6 +44,25 @@ The mesh is built with its outer face on +Y, which would normally call for
 `AXLE_Y` (90) like the Blender wheels. In game that pointed the rim at the
 suspension, so the item is registered with `AXLE_Y_FLIPPED` (270) instead, the
 same constant the soviet meshes use. The mesh itself was not mirrored.
+
+### Quads only
+
+The OBJ must not contain a face with more than four corners. Minecraft renders
+quads, and the NeoForge OBJ loader does not assemble a larger polygon: it drops
+it silently, with no warning and no missing-model cube, so the face is simply
+not there and you see through the model.
+
+This wheel carried 30 such faces, two caps on each of its prisms: `hub_drum`,
+`hub_back_boss`, `hub_plate`, `hub_axle_cap`, `rim_hand_hole_recess` and the
+ten `hub_lug_nut` hexes. Every one of them was an open tube in game. The defect
+was found on `ural_tire`, where the hub is larger and it was obvious; the same
+caps here were quietly wrong for exactly the same reason.
+
+`poly` now fans anything larger into quads, and `prism` routes its caps through
+`poly` instead of appending them straight to the face list. The caps are planar
+and convex, so the fan is exact and keeps the winding. No vertex moves; the
+face count rose from 706 purely from retessellation, and the build now fails if
+an oversized face ever reaches the file again.
 
 ## Texture
 
