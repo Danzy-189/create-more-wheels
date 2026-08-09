@@ -27,6 +27,7 @@ import java.util.List;
  *   <tr><td>soviet_wheel</td><td>0.96875</td><td>270</td><td>tire (0.96875)</td><td>0.896</td></tr>
  *   <tr><td>soviet_large_wheel</td><td>1.25</td><td>270</td><td>large_tire (1.25)</td><td>1.179</td></tr>
  *   <tr><td>semi-truck_tire</td><td>0.96875</td><td>270</td><td>tire (0.96875)</td><td>0.896</td></tr>
+ *   <tr><td>ural_tire</td><td>1.09375</td><td>270</td><td>between tire and large_tire</td><td>1.012</td></tr>
  * </table>
  *
  * <p><b>The steel_small_wheel mesh family.</b> {@code steel_small_wheel}, {@code classic_wheel},
@@ -197,6 +198,37 @@ public final class ModItems {
     public static final DeferredItem<Item> SEMI_TRUCK_TIRE = wheel(
             "semi-truck_tire",
             WheelDefinition.simple(0.96875F, WheelDefinition.AXLE_Y_FLIPPED, 0.6F)
+    );
+
+    /**
+     * Ural military off-road tyre - a tall black carcass on a dark rusty multi-piece
+     * steel rim. Sixteen tread lugs alternate which shoulder they overhang so the two
+     * rows interlock across the crown, which is what separates a military tyre from the
+     * semi's continuous ribbed band. The rim carries a bolt circle and a protruding hub;
+     * the reverse carries a rusty ring, a recessed brake drum and six bolt heads.
+     *
+     * <p>Radius 1.09375 sits between Offroad's {@code tire} (0.96875) and
+     * {@code large_tire} (1.25), about 13% larger than {@code semi-truck_tire}. Nothing
+     * forces a wheel onto a tier - the radius is just a float on the tire component, and
+     * {@code soviet_small_wheel} already runs 0.8.</p>
+     *
+     * <p>Mesh bounds: 2.0029 x 0.8202 x 2.0029 blocks, mesh radius 1.012 - the same 7.5%
+     * margin under the registered radius that {@code soviet_wheel} and
+     * {@code semi-truck_tire} use. Centred on 0.5 in all three axes, so {@code offset}
+     * stays {@code Vec3.ZERO}. Width over diameter is 0.405, deliberately fatter than the
+     * semi's 0.32 because the reference is a military truck casing.</p>
+     *
+     * <p>Same parametric generator as {@code semi-truck_tire}, so it needs
+     * {@link WheelDefinition#AXLE_Y_FLIPPED} (270) rather than {@code AXLE_Y}. Minimum
+     * friction 0.65, the highest in the lineup, on the strength of that tread.</p>
+     *
+     * <p>Built from a single 32x32 atlas - black rubber, rusty steel, groove shadow and a
+     * lighter hub metal in the four quadrants - so its {@code block.mtl} keeps one
+     * material and its {@code item.json} declares one texture key, {@code tire_0}.</p>
+     */
+    public static final DeferredItem<Item> URAL_TIRE = wheel(
+            "ural_tire",
+            WheelDefinition.simple(1.09375F, WheelDefinition.AXLE_Y_FLIPPED, 0.65F)
     );
 
     private ModItems() {
