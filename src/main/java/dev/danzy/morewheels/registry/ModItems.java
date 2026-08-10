@@ -28,6 +28,9 @@ import java.util.List;
  *   <tr><td>soviet_large_wheel</td><td>1.25</td><td>270</td><td>large_tire (1.25)</td><td>1.179</td></tr>
  *   <tr><td>semi-truck_tire</td><td>0.96875</td><td>270</td><td>tire (0.96875)</td><td>0.896</td></tr>
  *   <tr><td>ural_tire</td><td>1.09375</td><td>270</td><td>between tire and large_tire</td><td>1.012</td></tr>
+ *   <tr><td>small-semi-truck_tire</td><td>0.8</td><td>270</td><td>small_tire (0.75)</td><td>0.740</td></tr>
+ *   <tr><td>tractor_tire</td><td>1.25</td><td>270</td><td>large_tire (1.25)</td><td>1.156</td></tr>
+ *   <tr><td>small-tractor_tire</td><td>0.96875</td><td>270</td><td>tire (0.96875)</td><td>0.896</td></tr>
  * </table>
  *
  * <p><b>The steel_small_wheel mesh family.</b> {@code steel_small_wheel}, {@code classic_wheel},
@@ -36,6 +39,11 @@ import java.util.List;
  * their 32x32 texture. They therefore share every number below: radius 0.75, rotation
  * {@link WheelDefinition#AXLE_Y} (90) because the mesh came out of Blender, and
  * minimum friction 0.5. Fixing the mesh means re-uploading it to all six folders.</p>
+ *
+ * <p><b>Scaled pairs.</b> {@code small-semi-truck_tire} is {@code semi-truck_tire} and
+ * {@code small-tractor_tire} is {@code tractor_tire}, in each case the identical mesh written
+ * out at a smaller target radius. The generator takes that radius as an argument, so the two
+ * halves of a pair can never drift apart in topology or texture - only in size.</p>
  */
 public final class ModItems {
     public static final DeferredRegister.Items ITEMS = DeferredRegister.createItems(MoreWheels.MOD_ID);
@@ -220,7 +228,7 @@ public final class ModItems {
      *
      * <p>Same parametric generator as {@code semi-truck_tire}, so it needs
      * {@link WheelDefinition#AXLE_Y_FLIPPED} (270) rather than {@code AXLE_Y}. Minimum
-     * friction 0.65, the highest in the lineup, on the strength of that tread.</p>
+     * friction 0.65, behind only the tractor tyres, on the strength of that tread.</p>
      *
      * <p>Built from a single 32x32 atlas - black rubber, rusty steel, groove shadow and a
      * lighter hub metal in the four quadrants - so its {@code block.mtl} keeps one
@@ -229,6 +237,83 @@ public final class ModItems {
     public static final DeferredItem<Item> URAL_TIRE = wheel(
             "ural_tire",
             WheelDefinition.simple(1.09375F, WheelDefinition.AXLE_Y_FLIPPED, 0.65F)
+    );
+
+    /**
+     * Semi-truck tire one size down - the same mesh as {@code semi-truck_tire} written out
+     * at 82.6% scale, so a rig can run smaller steer wheels and full-size drive wheels
+     * from one visual family. Offroad counterpart: {@code small_tire} (0.75).
+     *
+     * <p>Registered at 0.8 rather than 0.75, following {@code soviet_small_wheel}, which is
+     * already the lineup's precedent for a small wheel sitting slightly above its tier.
+     * That keeps the 7.5% margin between mesh and registered radius every generated wheel
+     * here uses, and it keeps the step down from {@code semi-truck_tire} modest.</p>
+     *
+     * <p>Mesh bounds: 1.4798 x 0.5191 x 1.4798 blocks, mesh radius 0.7399. Centred on 0.5
+     * in all three axes, so {@code offset} stays {@code Vec3.ZERO}. Width over diameter is
+     * unchanged from its parent, because the scaling is uniform.</p>
+     *
+     * <p>Identical topology to {@code semi-truck_tire} - 762 quads, one 32x32 atlas, one
+     * material, one texture key {@code tire_0} - and identical friction at 0.6. Like its
+     * parent it needs {@link WheelDefinition#AXLE_Y_FLIPPED} (270).</p>
+     */
+    public static final DeferredItem<Item> SMALL_SEMI_TRUCK_TIRE = wheel(
+            "small-semi-truck_tire",
+            WheelDefinition.simple(0.8F, WheelDefinition.AXLE_Y_FLIPPED, 0.6F)
+    );
+
+    /**
+     * Agricultural tractor tyre - a very tall black carcass on a dished red steel rim,
+     * carrying eleven deep chevron lugs. Offroad counterpart: {@code large_tire} (1.25),
+     * which makes it the largest wheel in the lineup.
+     *
+     * <p><b>The tread.</b> Eleven chevrons, each a pair of arms climbing from opposite
+     * shoulders and converging on the same angle at the crown, each arm a five step
+     * staircase sweeping 30 degrees against a 32.7 degree lug pitch. That overlap is what
+     * closes the tyre: viewed along the axle, consecutive lugs cover each other's gaps, so
+     * the wheel is solid from every direction while still showing 16.9 degrees of clear
+     * groove between neighbouring chevrons. Closure is verified numerically at build time
+     * over 33 radii by 2160 angles rather than by a formula - an approximate formula is
+     * exactly what once let a ring of daylight through {@code ural_tire}. Relief is 13.7%
+     * of the wheel radius, roughly twice what the ural carries.</p>
+     *
+     * <p><b>Three tones of rubber.</b> Carcass, groove floor and a lighter worn crown on
+     * the lugs. A tread moulded in one flat black only exists in the shading, and vanishes
+     * completely head-on and in silhouette. Fitting that fifth tile is the only reason
+     * this is the first wheel here on a 64x64 atlas instead of 32x32; it still keeps one
+     * material and one texture key, {@code tire_0}.</p>
+     *
+     * <p>Mesh bounds: 2.312 x 0.8561 x 2.3091 blocks, mesh radius 1.156 - the usual 7.5%
+     * margin under the registered radius. Centred on 0.5 in all three axes, so
+     * {@code offset} stays {@code Vec3.ZERO}. Width over diameter is 0.37. Minimum
+     * friction 0.7, the highest in the lineup, which is what a farm tyre is for.</p>
+     *
+     * <p>Same parametric generator family as {@code semi-truck_tire} and {@code ural_tire},
+     * so it needs {@link WheelDefinition#AXLE_Y_FLIPPED} (270) rather than
+     * {@code AXLE_Y}.</p>
+     */
+    public static final DeferredItem<Item> TRACTOR_TIRE = wheel(
+            "tractor_tire",
+            WheelDefinition.simple(1.25F, WheelDefinition.AXLE_Y_FLIPPED, 0.7F)
+    );
+
+    /**
+     * The tractor tyre's front-axle partner - the same mesh written out at 77.5% scale,
+     * for a tractor whose rear axle runs {@code tractor_tire}.
+     * Offroad counterpart: {@code tire} (0.96875).
+     *
+     * <p>Identical topology, tread and atlas to {@code tractor_tire}; only the scale factor
+     * differs, so the chevrons stay in proportion and the two read as one set.</p>
+     *
+     * <p>Mesh bounds: 1.792 x 0.6636 x 1.7897 blocks, mesh radius 0.896 - the same figure
+     * as {@code soviet_wheel} and {@code semi-truck_tire}, at the same 7.5% margin under
+     * the registered radius. Centred on 0.5 in all three axes, so {@code offset} stays
+     * {@code Vec3.ZERO}. Width over diameter is 0.37 and minimum friction matches its
+     * larger partner at 0.7.</p>
+     */
+    public static final DeferredItem<Item> SMALL_TRACTOR_TIRE = wheel(
+            "small-tractor_tire",
+            WheelDefinition.simple(0.96875F, WheelDefinition.AXLE_Y_FLIPPED, 0.7F)
     );
 
     private ModItems() {

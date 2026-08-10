@@ -1,0 +1,4 @@
+# small-tractor_tire, texture path replaced with the NeoForge OBJ placeholder
+newmtl m_tire_0
+map_Kd #tire_0
+newmtl none
